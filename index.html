@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.min.js" integrity="sha512-v3ygConQmvH0QehvQa6gSvTE2VdBZ6wkLOlmK7Mcy2mZ0ZF9saNbbk19QeaoTHdWIEiTlWmrwAL4hS8ElnGFbA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body class="bg-success">
+  <div class="col-8 offset-2 my-5">
+    <div class="card">
+      <div class="card-body">
+        Chart Js
+        <hr>
+        <div> 
+          <canvas id="myChart"></canvas>
+          <table id="tabledata" class="table">
+            <tr>
+              <td>Labels</td><td>Data</td>
+            </tr>
+            
+
+          </table>
+          <hr>
+          <button class="btn btn-success" id="line">Line</button>
+          <button class="btn btn-danger" id="bar">Bar</button>
+          <button class="btn btn-secondary" id="pie">Pie</button>
+          <button class="btn btn-primary" id="doughnut">doughnut</button>
+        </div>
+      </div>
+     </div>
+  </div>
+    
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      
+      <script>
+        const line = document.getElementById('line'); 
+        const bar = document.getElementById('bar');
+        const pie = document.getElementById('pie');
+        const doughnut = document.getElementById('doughnut');
+        line.addEventListener('click',changeLine);
+        bar.addEventListener('click',changeBar);
+        pie.addEventListener('click',changePie);
+        doughnut.addEventListener('click',changeDoughnut);
+       function changeLine(){
+          const updateType = 'line'
+          chart.config.type = updateType
+          chart.update();
+        }
+       function changeBar(){
+        const updateType = 'bar'
+          chart.config.type = updateType
+          chart.update();
+        }
+        function changePie(){
+          const updateType = 'pie'
+          chart.config.type = updateType
+          chart.update();
+        }
+        function changeDoughnut(){
+          const updateType = 'doughnut'
+          chart.config.type = updateType
+          chart.update();
+        }
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const legendDisplay = false;
+       let chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+             labels: ['Yangon','Mandalay','Nay Pyi Taw','Mawlamyine','Kyain Seikgyi Township	','Bag o','Pathein','Monywa','Sittwe','Meiktila','Myeik','Taunggyi'],
+            datasets: [{
+              label: '# of Votes',
+              backgroundColor : ['red','grren','blue','violet','black','yellow'],
+              borderColor : 'green',
+              data: [4477638,
+                1208099,
+                925000,
+                438861,
+                246065,
+                244376,
+                237089,
+                182011,
+                177743,
+                1208099,
+                177442,
+                173298],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            // plugins :{
+            //   legend:{
+            //   display : legendDisplay
+            // } 
+            // },
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+ 
+
+        const tabledata = document.getElementById('tabledata')
+        // const tabledatatr = document.createElement('tr')
+        // const tabledatatd = document.createElement('td')
+        // const tabledatatd2 = document.createElement('td');
+        
+        for(i=0;i< chart.data.labels.length;i++){
+        const tabledatatr = document.createElement('tr')
+        const tabledatatd = document.createElement('td')
+        const tabledatatd2 = document.createElement('td');
+        
+        const labeltext = document.createTextNode(chart.data.labels[i])
+        const datapoint = document.createTextNode(chart.data.datasets[0].data[i])
+        tabledatatd.appendChild(labeltext)
+        tabledatatd2.appendChild(datapoint)
+        
+        tabledata.appendChild(tabledatatr) 
+        tabledatatr.appendChild(tabledatatd)
+        tabledatatr.appendChild(tabledatatd2)
+      }
+        console.log(chart.data.labels.length);
+        // const bgColor = chart.data.datasets[0].backgroundColor[3];
+        // const daTa = chart.data.datasets[0].data[7];
+        // console.log(daTa);
+        // console.log(bgColor);
+      </script>
+      
+</body>
+</html>
